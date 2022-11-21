@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+<div id="home-page">
+  <div id="allTripDetailsArea">
+    <h1>All trips details</h1>
+    <div id="allTripDetails">
+        <% if(trips){ %>
+          <table>
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Trip Price</th>
+                <!--<th>Fuel Consumption</th>
+                <th>Other Expense</th>
+                <th>Driver</th>
+                <th>Truck</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <% trips.forEach(trip => { %> 
+              <tr>
+                <td><%= trip.from %></td>
+                <td><%= trip.to %></td>
+                <td><%= trip.tripPrice %></td>
+                <!-- <td></td>
+                <td></td>
+                <td></td>
+                <td></td> -->
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        <% } %> 
+    </div>
+  </div>
+  <div id="myChart"></div>
+</div>
+
+<%- include('../partials/footer') %> 

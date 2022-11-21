@@ -9,8 +9,11 @@ const methodOverride = require('method-override');
 
 
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const homeRouter = require('./routes/home');
+const driversRouter = require('./routes/drivers');
+const trucksRouter = require('./routes/trucks');
+const tripsRouter = require('./routes/trips');
+
 
 var app = express();
 
@@ -25,8 +28,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', homeRouter);
+app.use('/home/drivers', driversRouter);
+app.use('/home/trucks', trucksRouter);
+app.use('/home/trips', tripsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

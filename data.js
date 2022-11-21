@@ -3,8 +3,8 @@ const driver = [
         firstname: 'Sam',
         lastname: 'Saunder',
         age : 26 ,
-        isIdeal: true,
-        license : 'B123-1223-5505',
+        isIdle: true,
+        licenseNumber : 'B123-1223-5505',
         dob: '1960-10-30',
         licenseType : 'G'
     },
@@ -12,8 +12,8 @@ const driver = [
         firstname: 'James',
         lastname: 'William',
         age : 30 ,
-        isIdeal: false,
-        license : 'B3313-1113-5510',
+        isIdle: false,
+        licenseNumber: 'B3313-1113-5510',
         dob: '1961-08-26',
         licenseType : 'DZ'
     }

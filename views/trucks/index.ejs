@@ -1,0 +1,52 @@
+<%- include('../partials/header') %>
+<div id="driver-page">
+  <div id="allDriverDetailsArea">
+    <h1>Drivers detail</h1>
+    <div id="allTripDetails">
+        <% if(drivers){ %>
+          <table>
+            <thead>
+              <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Age</th>
+                <th>DOB(Y-M-D)</th>
+                <th>Is Idle</th>
+                <th>License Number</th>
+                <th>License Type</th>
+                <th>Assigned Truck</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% drivers.forEach(driver => { %> 
+                <tr>
+                    <td><%= driver.firstname %></td>
+                    <td><%= driver.lastname %></td>
+                    <td><%= driver.age %></td>
+                    <td>
+                        <% const dobParsed =  driver.dob.toISOString().slice(0,10); %>
+                        <%= dobParsed  %> 
+                    </td>
+                    <td><%- driver.isIdle === true ? 'Yes' : 'No' %></td>
+                    <td><%= driver.licenseNumber %></td>
+                    <td><%= driver.licenseType %></td>
+                    <% if(driver.assignedTruck === null){ %>
+                        <td>Not Yet</td>
+                    <% } else { %>
+                        <td><%= driver.assignedTruck %></td>
+                    <%} %>
+                    <td>
+                        <form action="/home/drivers/<%= driver._id %>" method="POST">
+                            <button type="submit">Edit Driver</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+          </table>
+        <% } %> 
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %> 

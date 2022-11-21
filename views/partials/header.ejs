@@ -5,14 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="/javascripts/chart.js"></script>
+
   <title><%= title %></title>
 </head>
 <body>
   <nav>
-    <img src="/images/transport.jpeg">
-    <!-- <a href="/movies/performers/new" <%- title === 'Add Movie' ? 'class="active"' : '' %>>ADD PERFORMER</a> -->
-    <a href="/flights/new" <%- title === 'Add New Flight' ? 'class="active"' : '' %>>ADD FLIGHT</a>
-    <a href="/flights" <%- title === 'All flights' ? 'class="active"' : '' %>>ALL FLIGHTS</a>
+    <a href="/home" <%- title === 'Home' ? 'class="active"' : '' %>><img src="/images/transport.jpeg"></a>
+    <a href="/home/trucks" <%- title === 'All Trucks' ? 'class="active"' : '' %>>All Trucks</a>
+    <a href="/home/drivers" <%- title === 'All Drivers' ? 'class="active"' : '' %>>All Drivers</a>
+    <a href="/home" <%- title === 'Home' ? 'class="active"' : '' %>>Home</a>
   </nav>
   <main>
-    <h1><%= title %></h1>
+    <!-- <h1><%= title %></h1> -->

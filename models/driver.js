@@ -16,19 +16,19 @@ const driverSchema = new Schema({
         type : Number,
         required: true
     },
-    isIdeal:{
+    dob: {
+        type : Date,
+        required: true
+    },
+    isIdle:{
         type: Boolean,
         required: true,
         default : true
     },
-    license : {
+    licenseNumber : {
         type : String,
         required: true,
         default : null
-    },
-    dob: {
-        type : Date,
-        required: true
     },
     licenseType : {
         type : String,

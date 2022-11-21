@@ -23,9 +23,11 @@ body > nav {
   padding: 0 20px 0 30px;
 }
 
-nav > img {
-  width: 34px;
+nav > a >img {
+  height: 40px;
+  width: 40px;
   object-fit: contain;
+  float: left;
   margin-right: auto;
 }
 
@@ -39,9 +41,9 @@ body > main {
   overflow-y: scroll;
 }
 
-body > main h1:first-child {
+/* body > main h1:first-child {
   margin-bottom: 50px;
-}
+} */
 
 nav > a {
   margin: 20px;
@@ -59,24 +61,44 @@ nav > a.active {
   color: white;
 }
 
-#new-form {
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: repeat(2, minmax(auto, 22rem));
+#home-page{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+#allTripDetailsArea{
+  height: 50vh;
+  width: 50vw;
+  margin: auto;
+  /* border: 2px solid #424748; */
+}
+#allTripDetailsArea > h1 {
+  /* margin: 10px; */
+  height: 10%;
+  width: 100%;
 }
 
-#new-form *,
-#add-review-form *,
-#add-performer-form * {
-  font-size: 20px;
-  padding: 5px;
-  border-radius: 5px;
+#allTripDetails > table{
+  height: 80%;
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid #424748;
 }
 
-#new-form input[type="submit"] {
-  grid-column: span 2;
-  width: 10rem;
-  margin-left: auto;
+#allTripDetails > table > td{
+  text-decoration-line: underline;
+}
+
+#myChart{
+  /* border: 2px solid #424748; */
+  border-radius: 20px;
+  height:50vh;
+  width:50vw;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  max-width:500px;
 }
 
 table {
@@ -93,47 +115,6 @@ table td {
   text-align: center;
 }
 
-#list td:nth-child(2), #list td:nth-child(3){
-  min-width: 100px;
-}
-
-#list a {
-  border-radius: 4px;
-  background-color: #B8C0C2;
-  padding: 4px;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-#list a:hover {
-  background-color: white;
-}
-
-#show-page {
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-gap: 1rem;
-}
-
-#show-page div:nth-child(even) {
-  font-weight: bold;
-}
-
-#add-review-form,
-#add-performer-form {
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-#add-review-form input[type="submit"],
-#add-performer-form input[type="submit"]  {
-  width: 10rem;
-  grid-column: 2 / 3;
-}
-
-
 ul {
   margin: 0 0 1rem;
   padding: 0;
@@ -144,7 +125,3 @@ li {
   font-weight: bold;
 }
 
-img{
-  height: 50px;
-  width: 50px;
-}
