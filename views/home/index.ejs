@@ -7,7 +7,7 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Country', 'Mhl'],
-      ['Fuel Consumption',2000],
+      ['Fuel Consumption',parseInt('<%= trips.forEach() %>')],
       ['Other Expense',500],
       ['Profit',10000 - 2500],
 
