@@ -1,14 +1,14 @@
 * {
   box-sizing: border-box;
   font-family: Helvetica;
-  color: #424748;
+  color: #255c1e;
 }
 
 body {
   margin: 0;
   height: 100vh;
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 100px 1fr;
   grid-template-areas: 
     "nav"
     "main"
@@ -16,18 +16,22 @@ body {
 
 body > nav {
   grid-area: nav;
-  background-color: #B8C0C2;
+  background-color: #48ec5e;
   display: flex;
-  justify-content: flex-end;
+  justify-content:space-around;
   align-items: center;
   padding: 0 20px 0 30px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
 }
 
 nav > a >img {
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 60px;
   object-fit: contain;
-  float: left;
+  display: flex;
+  justify-content : flex-start;
   margin-right: auto;
 }
 
@@ -36,9 +40,11 @@ body > main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #E8ECEB;
+  background-color: #d1e5a0;
   padding: 20px;
   overflow-y: scroll;
+ 
+
 }
 
 /* body > main h1:first-child {
@@ -48,13 +54,13 @@ body > main {
 nav > a {
   margin: 20px;
   text-decoration: none;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 20px;
+  border-radius: 15px;
 }
 
 nav > a:hover {
-  color: white;
-  background-color: #424748;
+  color: rgb(221, 50, 50);
+  background-color: #cae5eb;
 }
 
 nav > a.active {
@@ -64,25 +70,29 @@ nav > a.active {
 #home-page{
   height: 100vh;
   width: 100vw;
-  display: flex;
+  /* display: flex; */
 }
-#allTripDetailsArea{
-  height: 50vh;
-  width: 50vw;
-  margin: auto;
-  /* border: 2px solid #424748; */
-}
-#allTripDetailsArea > h1 {
-  /* margin: 10px; */
-  height: 10%;
-  width: 100%;
+#homePageTable{
+  height: 40vh;
+  /* width: 60vw; */
+  /* display: flex */
 }
 
-#allTripDetails > table{
+.detailsArea{
+  height: 50vh;
+  width: 70vw;
+  margin: auto;
+}
+.detailsArea > h1 {
+  /* height: 10%; */
+  /* width: 100%; */
+}
+
+.details > table{
   height: 80%;
   width: 100%;
   border-radius: 10px;
-  border: 2px solid #424748;
+  /* border: 2px solid #424748; */
 }
 
 #allTripDetails > table > td{
@@ -90,15 +100,15 @@ nav > a.active {
 }
 
 #myChart{
-  /* border: 2px solid #424748; */
-  border-radius: 20px;
+
   height:50vh;
   width:50vw;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-
+  margin:auto;
+  margin-top: 10%;
+  margin-bottom: 1%;
+  margin-left: 30%;
   max-width:500px;
+  text-align: center;
 }
 
 table {
@@ -107,12 +117,82 @@ table {
 
 table thead th {
   padding: 5px;
-  border-bottom: 2px solid #424748;
+  border: 2px solid #579633;
+  border-radius: 10px;
+}
+th {
+  padding: 5px;
+  border: 2px solid #579633;
+  border-radius: 10px;
+  background-color: rgb(139, 90, 230);
 }
 
 table td {
-  padding: 10px;
+  padding: 15px;
   text-align: center;
+  border: 2px solid rgb(120, 113, 145);
+  border-radius: 10px;
+  background-color: rgb(93, 190, 109);
+  /* float: left; */
+}
+.editingTable > tbody > tr > td {
+  padding: 15px;
+  text-align: center;
+  border: 2px solid rgb(120, 113, 145);
+  border-radius: 10px;
+  background-color: rgb(93, 190, 109);
+  float: left;
+}
+.saveInfoButton{
+  text-align: center;
+}
+
+.editingTableBottomForm{
+  padding: 5px;
+  text-align: center;
+  border: 2px solid rgb(120, 113, 145);
+  /* border-radius: px; */
+  background-color: rgb(93, 190, 109);
+}
+
+.editingTableBottomForm > button{
+  margin: 2px important;
+  text-decoration: none;
+  padding: 2px important;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.newPageTable > tbody > tr > th{
+  padding: 15px;
+  text-align: center;
+  border: 2px solid rgb(120, 113, 145);
+  border-radius: 10px;
+  background-color: rgb(93, 190, 109);
+  float: right;
+}
+
+button{
+  margin: 20px;
+  text-decoration: none;
+  padding: 20px;
+  font-weight: 600;
+  border-radius: 15px;
+}
+
+button:hover {
+  color: rgb(221, 50, 50);
+  background-color: #b9cf39;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: rgb(221, 164, 78);
+  border-radius: 10px;
+  object-fit: contain;
+  /* text-decoration: underline; */
 }
 
 ul {

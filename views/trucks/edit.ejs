@@ -2,7 +2,7 @@
 
 <section id="truck-edit-page">
     <form id="truckEditSaveForm" action="/home/trucks/<%= truck._id %>" method="POST">
-        <table id="truckEditTable">
+        <table class="editingTable">
                 <tr>
                     <th>Truck Number: </th>
                     <td>
@@ -56,13 +56,13 @@
                 </tr>
                 
         </table>
-         <button type="submit">Save Changes</button>
+         <button class="saveInfoButton" type="submit">Save Changes</button>
     </form>
 </section>
 <br><br><br>
 <section>
     <h1>Driver of this Truck</h1>
-    <table>
+    <table class="editingTableBottom">
         <tr>
             <th>Current Driver</th>
             <td>
@@ -74,7 +74,7 @@
                             <% truck.currentDrivers.map( driver => {%>
                             <tr>
                                 <td><%= driver.firstname%>, <%= driver.lastname%></td>    
-                                <td>
+                                <td class="editingTableBottomForm">
                                     <form action="/home/trucks/<%= truck._id %>/driver/<%= driver._id%>?_method=DELETE" method="POST"> 
                                         <button type="submit">X</button>
                                     </form>

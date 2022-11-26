@@ -1,21 +1,41 @@
 <%- include('../partials/header') %>
+
+<script>
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Country', 'Mhl'],
+      ['Fuel Consumption',2000],
+      ['Other Expense',500],
+      ['Profit',10000 - 2500],
+
+    ]);
+
+    var options = {
+      title:'Deliveries Report',
+      is3D:true
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('myChart'));
+    chart.draw(data, options);
+}
+
+</script>
 <div id="home-page">
-  <div id="allTripDetailsArea">
-    <h1>All trips details 
-      <a href="/home/trips">Click for Details</a>
+  <div class="detailsArea">
+    <h1>  
+      Trips Report
     </h1>
-    <div id="allTripDetails">
+    <div class="details">
         <% if(trips){ %>
-          <table>
+          <table id="homePageTable">
             <thead>
               <tr>
                 <th>From</th>
                 <th>To</th>
                 <th>Trip Price</th>
-                <!--<th>Fuel Consumption</th>
-                <th>Other Expense</th>
-                <th>Driver</th>
-                <th>Truck</th> -->
               </tr>
             </thead>
             <tbody>
@@ -24,10 +44,6 @@
                 <td><%= trip.from %></td>
                 <td><%= trip.to %></td>
                 <td><%= trip.tripPrice %></td>
-                <!-- <td></td>
-                <td></td>
-                <td></td>
-                <td></td> -->
               </tr>
               <% }); %>
             </tbody>

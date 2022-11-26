@@ -1,12 +1,10 @@
 <%- include('../partials/header') %>
 <div id="trip-page">
-  <div id="allTripDetailsArea">
-    <h1>Trips detail
-      <form action="/home/trips/new" method="get">
+  <div class="detailsArea">
+      <form class="newPageButton" action="/home/trips/new" method="get">
         <button type="submit">Add New Trip</button>
       </form>
-    </h1>
-    <div id="allTripDetails">
+    <div iclass="details">
         <% if(trips){ %>
           <table>
             <thead>

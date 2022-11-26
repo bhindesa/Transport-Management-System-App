@@ -2,7 +2,7 @@
 
 <section id="trip-edit-page">
     <form id="tripEditSaveForm" action="/home/trips/<%= trip._id %>" method="POST">
-        <table id="tripEditTable">
+        <table class="editingTable">
                 <tr>
                     <th>From :</th>
                     <td>
@@ -56,12 +56,12 @@
                     </td>
                 </tr>
         </table>
-         <button type="submit">Save Info</button>
+         <button class="saveInfoButton" type="submit">Save Info</button>
     </form>
 </section>
 <section>
-    <h1>Assigned Drivers & Truck </h1>
-    <table>
+    <h1>Assigned Drivers & Truck</h1>
+    <table >
         <tr>
             <th>Assigned Drivers(Max 2) : </th>
             <td>
@@ -74,8 +74,8 @@
                             <% trip.drivers.map( driver => {%>
                             <tr>
                                 <td><%= driver.firstname %>, <%= driver.lastname %></td>    
-                                <td>
-                                    <form action="/home/trips/<%= trip._id %>/driver/<%= driver._id%>?_method=DELETE" method="POST"> 
+                                <td class="editingTableBottomForm">
+                                    <form  action="/home/trips/<%= trip._id %>/driver/<%= driver._id%>?_method=DELETE" method="POST"> 
                                         <button type="submit">X</button>
                                     </form>
                                 </td>
@@ -97,7 +97,7 @@
                             <% trip.truck.map( truck => {%>
                             <tr>
                                 <td>(Truck Number : <%= truck.truckNumber%>) (Make : <%= truck.make%>)</td>    
-                                <td>
+                                <td class="editingTableBottomForm">
                                     <form action="/home/trips/<%= trip._id %>/truck/<%= truck._id%>?_method=DELETE" method="POST"> 
                                         <button type="submit">X</button>
                                     </form>

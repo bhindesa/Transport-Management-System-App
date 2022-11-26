@@ -1,12 +1,10 @@
 <%- include('../partials/header') %>
 <div id="truck-page">
-  <div id="allTruckDetailsArea">
-    <h1>Trucks detail
-      <form action="/home/trucks/new" method="get">
+  <div class="detailsArea">
+      <form class="newPageButton" action="/home/trucks/new" method="get">
         <button type="submit">Add New Truck</button>
       </form>
-    </h1>
-    <div id="allTruckDetails">
+    <div class="details">
         <% if(trucks){ %>
           <table>
             <thead>

@@ -1,13 +1,10 @@
 <%- include('../partials/header') %>
 <div id="driver-page">
-  <div id="allDriverDetailsArea">
-    <h1>Drivers detail
-      <form action="/home/drivers/new" method="get">
+  <div class="detailsArea">
+      <form class="newPageButton" action="/home/drivers/new" method="get">
         <button type="submit">Add New Driver</button>
       </form>
-    </h1>
-    </h1>
-    <div id="allTripDetails">
+    <div class="details">
         <% if(drivers){ %>
           <table>
             <thead>

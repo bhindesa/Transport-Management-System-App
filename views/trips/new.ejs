@@ -1,8 +1,8 @@
 <%- include('../partials/header') %>
 
 <section id="new-trip-page">
-    <form id="newTripForm" action="/home/trips" method="POST">
-        <table id="newTripTable">
+    <form class="newPageTableForm" action="/home/trips" method="POST">
+        <table id="newPageTable">
                 <tr>
                     <th>From : </th>
                     <td>
@@ -39,7 +39,7 @@
          <button type="submit">Add Trip</button>
     </form>
 </section>
-<form id="newTripCancelForm" action="/home/trips" method="get">
+<form class="newPageCancelButton" action="/home/trips" method="get">
     <button type="submit">Cancel</button>
 </form>
 

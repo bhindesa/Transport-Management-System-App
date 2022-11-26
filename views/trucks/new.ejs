@@ -1,8 +1,8 @@
 <%- include('../partials/header') %>
 
 <section id="new-truck-page">
-    <form id="newTruckForm" action="/home/trucks" method="POST">
-        <table id="newTruckTable">
+    <form class="newPageTableForm" action="/home/trucks" method="POST">
+        <table id="newPageTable">
                 <tr>
                     <th>Truck Number</th>
                     <td>
@@ -47,7 +47,7 @@
          <button type="submit">Add Truck</button>
     </form>
 </section>
-<form id="newTruckCancelForm" action="/home/trucks" method="get">
+<form class="newPageCancelButton" action="/home/trucks" method="get">
     <button type="submit">Cancel</button>
 </form>
 

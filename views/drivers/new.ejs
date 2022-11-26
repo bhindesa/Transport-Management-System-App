@@ -1,8 +1,8 @@
 <%- include('../partials/header') %>
 
 <section id="new-driver-page">
-    <form id="newDriverSaveForm" action="/home/drivers/new" method="POST">
-        <table id="newDriverTable">
+    <form class="newPageTableForm" action="/home/drivers/new" method="POST">
+        <table id="newPageTable">
                 <tr>
                     <th>Firstname</th>
                     <td>
@@ -52,7 +52,7 @@
          <button type="submit">Add Driver</button>
     </form>
 </section>
-<form id="truckEditGoBackForm" action="/home/drivers" method="get">
+<form class="newPageCancelButton" action="/home/drivers" method="get">
     <button type="submit">Cancel</button>
 </form>
 
