@@ -72,10 +72,21 @@ nav > a.active {
   width: 100vw;
   /* display: flex; */
 }
-#homePageTable{
+#homePageTable {
   height: 40vh;
   /* width: 60vw; */
   /* display: flex */
+}
+
+#homePageCharts {
+  height:50vh;
+  width:50vw;
+  margin:auto;
+  margin-top: 20px;
+  margin-bottom: 1%;
+  margin-left: 30%;
+  max-width:500px;
+  text-align: center;
 }
 
 .detailsArea{
@@ -104,9 +115,9 @@ nav > a.active {
   height:50vh;
   width:50vw;
   margin:auto;
-  margin-top: 10%;
+  /* margin-top: 10%;
   margin-bottom: 1%;
-  margin-left: 30%;
+  margin-left: 30%; */
   max-width:500px;
   text-align: center;
 }
@@ -188,11 +199,13 @@ button:hover {
 h1 {
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: fit-content;
+  text-align: center;
   padding: 10px;
   background-color: rgb(221, 164, 78);
   border-radius: 10px;
-  object-fit: contain;
-  /* text-decoration: underline; */
+  /* object-fit: contain; */
 }
 
 ul {
