@@ -1,0 +1,104 @@
+<%- include('../partials/header') %>
+
+<section id="driver-edit-page">
+    <form id="driverEditSaveForm" action="/home/drivers/<%= driver._id %>" method="POST">
+        <table id="driverEditTable">
+                <tr>
+                    <th>Firstname</th>
+                    <td>
+                        <input type="text" name="firstname" value="<%= driver.firstname %>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Lastname</th>
+                    <td>
+                        <input type="text" name="lastname" value="<%= driver.lastname %>">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th>Age</th>
+                    <td>
+                        <%= driver.age %>
+                    </td>
+                </tr>
+                <tr>
+                    <th>DOB</th>
+                    <td>
+                        <input type="date" name="dob" value="<%= driver.dob.toISOString().slice(0,10) %>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>isIdle :</th>
+                    <td>
+                        <select name="isIdle">
+                            <option value='true' <%= driver.isIdle === true ? 'selected' : '' %>> YES </option>
+                            <option value='false' <%= driver.isIdle === false ? 'selected' : '' %>> No </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>License Number :</th>
+                    <td>
+                        <input type="text" name="licenseNumber" value="<%= driver.licenseNumber %>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>License Type :</th>
+                    <td>
+                        <select name="licenseType">
+                            <option value="G" <%= driver.licenseType === 'G' ? 'selected' : '' %>>G</option>
+                            <option value="DZ" <%= driver.licenseType === 'DZ' ? 'selected' : '' %>>DZ</option>
+                            <option value="AZ" <%= driver.licenseType === 'AZ' ? 'selected' : '' %>>AZ</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Available Trucks :</th>
+                    <td>
+                        <select name="newAssignedTruckSelected">
+                            <option value="notSelected">Not Selected</option>
+                            <% trucks.map( truck => {%>
+                              <option value="<%= truck._id %>">(Truck Number = <%= truck.truckNumber%>) (Make = <%= truck.make%>)</option>`%>
+                            <% }) %>
+                        </select>
+                    </td>
+                </tr>
+                
+        </table>
+         <button type="submit">Save Info</button>
+    </form>
+</section>
+<section>
+    <h1>Driver's Truck Area</h1>
+    <table>
+        <tr>
+            <th>Assigned Truck</th>
+            <td>
+                
+                    <% // console.log("in EDIT EJS current driver : ", truck.currentDrivers) %> 
+                    <%  if(driver.assignedTruck.length === 0){ %> 
+                        Not Assigned Yet
+                    <% } else { %> 
+                        <table>
+                            <% driver.assignedTruck.map( truck => {%>
+                            <tr>
+                                <td>(Truck Number: <%= truck.truckNumber%>) (Make: <%= truck.make%>)</td>    
+                                <td>
+                                    <form action="/home/drivers/<%= driver._id %>/truck/<%= truck._id%>?_method=DELETE" method="POST"> 
+                                        <button type="submit">X</button>
+                                    </form>
+                                </td>
+                            <% `</tr>` %>
+                            <% }).join('')%> 
+                        </table>
+                    <% } %>  
+            </td>
+        </tr>
+    </table>
+</section>
+<form id="driverEditGoBackForm" action="/home/drivers" method="get">
+    <button type="submit">Go Back to All Driver</button>
+</form>
+
+<%- include('../partials/footer') %>

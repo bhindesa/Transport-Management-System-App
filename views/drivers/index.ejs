@@ -1,7 +1,12 @@
 <%- include('../partials/header') %>
 <div id="driver-page">
   <div id="allDriverDetailsArea">
-    <h1>Drivers detail</h1>
+    <h1>Drivers detail
+      <form action="/home/drivers/new" method="get">
+        <button type="submit">Add New Driver</button>
+      </form>
+    </h1>
+    </h1>
     <div id="allTripDetails">
         <% if(drivers){ %>
           <table>
@@ -15,6 +20,7 @@
                 <th>License Number</th>
                 <th>License Type</th>
                 <th>Assigned Truck</th>
+                <th>Edit Driver Below</th>
               </tr>
             </thead>
             <tbody>
@@ -30,13 +36,17 @@
                     <td><%- driver.isIdle === true ? 'Yes' : 'No' %></td>
                     <td><%= driver.licenseNumber %></td>
                     <td><%= driver.licenseType %></td>
-                    <% if(driver.assignedTruck === null){ %>
+                    <% if(driver.assignedTruck.length === 0){ %>
                         <td>Not Yet</td>
                     <% } else { %>
-                        <td><%= driver.assignedTruck %></td>
+                      <% driver.assignedTruck.map( truck => {%>
+                        <td><%= truck.truckNumber %></td>
+                      <% }).join('')%> 
+
+                       
                     <%} %>
                     <td>
-                        <form action="/home/drivers/<%= driver._id %>" method="POST">
+                        <form action="/home/drivers/<%= driver._id %>" method="get">
                             <button type="submit">Edit Driver</button>
                         </form>
                     </td>

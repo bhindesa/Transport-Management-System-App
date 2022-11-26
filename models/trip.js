@@ -30,17 +30,18 @@ const tripSchema = new Schema({
         required : true,
         default : 0
     },
-    drivers : {
+    drivers : [
+         {
         type : Schema.Types.ObjectId,
-        ref : 'Driver',
-        default : null
-
-    },
-    truck :{
+        ref : 'Driver'
+        }
+    ],
+    truck :[
+        {
         type : Schema.Types.ObjectId,
-        ref : 'Truck',
-        default : null
-    }
+        ref : 'Truck'
+        }
+    ]   
 },
 {
     timestamp : true

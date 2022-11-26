@@ -1,0 +1,59 @@
+<%- include('../partials/header') %>
+
+<section id="new-driver-page">
+    <form id="newDriverSaveForm" action="/home/drivers/new" method="POST">
+        <table id="newDriverTable">
+                <tr>
+                    <th>Firstname</th>
+                    <td>
+                        <input type="text" name="firstname" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Lastname</th>
+                    <td>
+                        <input type="text" name="lastname" value="">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th>DOB</th>
+                    <td>
+                        <input type="date" name="dob" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>isIdle :</th>
+                    <td>
+                        <select name="isIdle">
+                            <option value='true'> YES </option>
+                            <option value='false'> No </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>License Number :</th>
+                    <td>
+                        <input type="text" name="licenseNumber" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>License Type :</th>
+                    <td>
+                        <select name="licenseType">
+                            <option value="G">G</option>
+                            <option value="DZ">DZ</option>
+                            <option value="AZ">AZ</option>
+                        </select>
+                    </td>
+                </tr>
+              
+        </table>
+         <button type="submit">Add Driver</button>
+    </form>
+</section>
+<form id="truckEditGoBackForm" action="/home/drivers" method="get">
+    <button type="submit">Cancel</button>
+</form>
+
+<%- include('../partials/footer') %>

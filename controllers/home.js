@@ -12,7 +12,7 @@ function index(req, res){
         console.log("Trips Data - >\n", trips)
         res.render('home/index',
         { 
-            title : 'Home Page',
+            title : 'Home',
             trips
         });
     })

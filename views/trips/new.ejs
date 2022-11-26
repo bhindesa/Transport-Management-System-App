@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+
+<section id="new-trip-page">
+    <form id="newTripForm" action="/home/trips" method="POST">
+        <table id="newTripTable">
+                <tr>
+                    <th>From : </th>
+                    <td>
+                        <input type="text" name="from" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>To : </th>
+                    <td>
+                        <input type="text" name="to" value="">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th>Trip Price($) : </th>
+                    <td>
+                        <input type="number" name="tripPrice" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Fuel Consumption(L) : </th>
+                    <td>
+                        <input type="number" name="fuelConsumption" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Other Expenses : </th>
+                    <td>
+                        <input type="number" name="otherExpenses" value="">
+                    </td>
+                </tr>
+                
+        </table>
+         <button type="submit">Add Trip</button>
+    </form>
+</section>
+<form id="newTripCancelForm" action="/home/trips" method="get">
+    <button type="submit">Cancel</button>
+</form>
+
+<%- include('../partials/footer') %>

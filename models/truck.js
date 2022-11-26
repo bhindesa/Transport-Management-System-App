@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Driver = require('../models/driver'); 
 
+
 const Schema = mongoose.Schema;
 
 const truckSchema = new Schema({
@@ -30,15 +31,16 @@ const truckSchema = new Schema({
         type : Number,
         required : true
     },
-    currentDrivers : {
-        type : [Driver],
-        default : null
-    },
+    currentDrivers : [
+        {
+            type : Schema.Types.ObjectId,
+            ref : 'Driver'
+        }
+    ],
     driversHistory : [
         {
             type : Schema.Types.ObjectId,
-            ref : 'Driver',
-            default : null
+            ref : 'Driver'
         }
     ]
 },
@@ -47,3 +49,4 @@ const truckSchema = new Schema({
 });
 
 module.exports = mongoose.model('Truck', truckSchema)
+

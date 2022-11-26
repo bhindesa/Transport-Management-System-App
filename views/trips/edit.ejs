@@ -1,0 +1,117 @@
+<%- include('../partials/header') %>
+
+<section id="trip-edit-page">
+    <form id="tripEditSaveForm" action="/home/trips/<%= trip._id %>" method="POST">
+        <table id="tripEditTable">
+                <tr>
+                    <th>From :</th>
+                    <td>
+                        <input type="text" name="from" value="<%= trip.from %>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>To : </th>
+                    <td>
+                        <input type="text" name="to" value="<%= trip.to %>">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th>Trip Price($) : </th>
+                    <td>
+                        <input type="number" name="tripPrice" value="<%= trip.tripPrice %>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Fuel Consumption</th>
+                    <td>
+                        <input type="number" name="fuelConsumption" value="<%= trip.fuelConsumption %>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Other Expenses :</th>
+                    <td> 
+                        <input type="number" name="otherExpenses" value="<%= trip.otherExpenses %>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Drivers : </th>
+                    <td>
+                        <select name="drivers">
+                            <option value="notSelected">Not Selected</option>
+                            <% drivers.map( driver => {%>
+                              <option value="<%= driver._id %>"><%= driver.firstname %>, <%= driver.lastname%></option>`%>
+                            <% }) %>
+                        </select>
+                    </td>
+                </tr><tr>
+                    <th>Trucks : </th>
+                    <td>
+                        <select name="truck">
+                            <option value="notSelected">Not Selected</option>
+                            <% trucks.map( truck => {%>
+                              <option value="<%= truck._id %>">(Truck Number : <%= truck.truckNumber%>) (Make : <%= truck.make%>)</option>`%>
+                            <% }) %>
+                        </select>
+                    </td>
+                </tr>
+        </table>
+         <button type="submit">Save Info</button>
+    </form>
+</section>
+<section>
+    <h1>Assigned Drivers & Truck </h1>
+    <table>
+        <tr>
+            <th>Assigned Drivers(Max 2) : </th>
+            <td>
+                
+                    <% // console.log("in EDIT EJS current driver : ", truck.currentDrivers) %> 
+                    <%  if(trip.drivers.length === 0){ %> 
+                        Not Assigned Yet
+                    <% } else { %> 
+                        <table>
+                            <% trip.drivers.map( driver => {%>
+                            <tr>
+                                <td><%= driver.firstname %>, <%= driver.lastname %></td>    
+                                <td>
+                                    <form action="/home/trips/<%= trip._id %>/driver/<%= driver._id%>?_method=DELETE" method="POST"> 
+                                        <button type="submit">X</button>
+                                    </form>
+                                </td>
+                            <% `</tr>` %>
+                            <% }).join('')%> 
+                        </table>
+                    <% } %>  
+            </td>
+        </tr>
+        <tr>
+            <th>Assigned Truck :</th>
+            <td>
+                
+                    <% // console.log("in EDIT EJS current driver : ", truck.currentDrivers) %> 
+                    <%  if(trip.truck.length === 0){ %> 
+                        No Truck Assigned
+                    <% } else { %> 
+                        <table>
+                            <% trip.truck.map( truck => {%>
+                            <tr>
+                                <td>(Truck Number : <%= truck.truckNumber%>) (Make : <%= truck.make%>)</td>    
+                                <td>
+                                    <form action="/home/trips/<%= trip._id %>/truck/<%= truck._id%>?_method=DELETE" method="POST"> 
+                                        <button type="submit">X</button>
+                                    </form>
+                                </td>
+                            <% `</tr>` %>
+                            <% }).join('')%> 
+                        </table>
+                    <% } %>  
+            </td>
+        </tr>
+    </table>
+</section>
+<form id="tripEditGoBackForm" action="/home/trips" method="get">
+    <button type="submit">Go Back to All Trips</button>
+</form>
+
+<%- include('../partials/footer') %>

@@ -11,6 +11,11 @@ const p3 = Truck.deleteMany({});
 Promise.all([p1,p2,p3])
 .then((DeletionResult) => {
     console.log("DELETED from Databases -> \n" , DeletionResult);
+    data.driver.forEach(function(driver){
+        const now  =  new Date();
+        const dob = new Date(driver.dob)
+        driver.age = now.getFullYear() - dob.getFullYear();
+    });
     return Driver.create(data.driver);
 })
 .then((CreatedDriverResult) => {

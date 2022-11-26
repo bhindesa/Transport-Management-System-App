@@ -1,0 +1,63 @@
+<%- include('../partials/header') %>
+<div id="trip-page">
+  <div id="allTripDetailsArea">
+    <h1>Trips detail
+      <form action="/home/trips/new" method="get">
+        <button type="submit">Add New Trip</button>
+      </form>
+    </h1>
+    <div id="allTripDetails">
+        <% if(trips){ %>
+          <table>
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Trip Price</th>
+                <th>Fuel Consumption</th>
+                <th>Other Expense</th>
+                <th>Driver</th>
+                <th>Truck</th>
+                <th>Edit Trip Below</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% trips.forEach(trip => { %> 
+                <tr>
+                    <td><%= trip.from %></td>
+                    <td><%= trip.to %></td>
+                    <td><%= trip.tripPrice %></td>
+                    <td><%= trip.fuelConsumption %></td>
+                    <td><%= trip.otherExpenses %></td>
+                    
+                    <% if(trip.drivers.length === 0){ %>
+                        <td>No driver</td>
+                    <% } else { %>
+                    <td><% trip.drivers.map( driver => {%>
+                    <%= driver.firstname %>, <%= driver.lastname %>   
+                    <% }).join('')%>  %></td> 
+                    <%} %>
+
+
+                    <% if(trip.truck.length === 0){ %>
+                        <td>No truck</td>
+                    <% } else { %>
+                    <td><% trip.truck.map( truck => {%>
+                    (Truck No. : <%= truck.truckNumber %>) (Make: <%= truck.make %>)  
+                    <% }).join('')%>  %></td>  
+                    <%} %>
+                    <td>
+                        <form action="/home/trips/<%= trip._id %>" method="PUT">
+                            <button type="submit">Edit Trip</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+          </table>
+        <% } %> 
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %> 

@@ -1,43 +1,65 @@
 <%- include('../partials/header') %>
-<div id="driver-page">
-  <div id="allDriverDetailsArea">
-    <h1>Drivers detail</h1>
-    <div id="allTripDetails">
-        <% if(drivers){ %>
+<div id="truck-page">
+  <div id="allTruckDetailsArea">
+    <h1>Trucks detail
+      <form action="/home/trucks/new" method="get">
+        <button type="submit">Add New Truck</button>
+      </form>
+    </h1>
+    <div id="allTruckDetails">
+        <% if(trucks){ %>
           <table>
             <thead>
               <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Age</th>
-                <th>DOB(Y-M-D)</th>
-                <th>Is Idle</th>
-                <th>License Number</th>
-                <th>License Type</th>
-                <th>Assigned Truck</th>
+                <th>Truck Number</th>
+                <th>Make</th>
+                <th>Mileage</th>
+                <th>Maintenance Date(Y-M-D)</th>
+                <th>Active</th>
+                <th>Fuel Efficiency(Km/ltr)</th>
+                <th>Current Driver</th>
+                <th>Truck Drivers History</th>
+                <th>Edit Truck Below</th>
               </tr>
             </thead>
             <tbody>
-                <% drivers.forEach(driver => { %> 
+                <% trucks.forEach(truck => { %> 
                 <tr>
-                    <td><%= driver.firstname %></td>
-                    <td><%= driver.lastname %></td>
-                    <td><%= driver.age %></td>
+                    <td><%= truck.truckNumber %></td>
+                    <td><%= truck.make %></td>
+                    <td><%= truck.mileage %></td>
                     <td>
-                        <% const dobParsed =  driver.dob.toISOString().slice(0,10); %>
-                        <%= dobParsed  %> 
+                        <% const maintenanceDateParsed =  truck.maintenanceDate.toISOString().slice(0,10); %>
+                        <%= maintenanceDateParsed  %> 
                     </td>
-                    <td><%- driver.isIdle === true ? 'Yes' : 'No' %></td>
-                    <td><%= driver.licenseNumber %></td>
-                    <td><%= driver.licenseType %></td>
-                    <% if(driver.assignedTruck === null){ %>
-                        <td>Not Yet</td>
-                    <% } else { %>
-                        <td><%= driver.assignedTruck %></td>
-                    <%} %>
+                    <td><%- truck.active === true ? 'Yes' : 'No' %></td>
+                    <td><%= truck.fuelEfficiency %></td>
                     <td>
-                        <form action="/home/drivers/<%= driver._id %>" method="POST">
-                            <button type="submit">Edit Driver</button>
+                    <% if(truck.currentDrivers.length === 0){ %>
+                        Not Driver
+                    <% } else { %>
+                        <ul>
+                          <%- truck.currentDrivers.map( driver => 
+                          `<li>${driver.firstname}, ${driver.lastname}</li>`
+                          ).join('') %>
+                        </ul>
+                    <% } %> 
+                    </td>
+                    <td>
+                    <% if(truck.driversHistory.length === 0){ %> 
+                      No History
+                      <% } else {%> 
+                        <ul>
+                          <%- truck.driversHistory.map( driver => 
+                          `<li>${driver.firstname}, ${driver.lastname}</li>`
+                          ).join('') %>
+                      </ul>
+                          
+                      <% } %> 
+                    </td>
+                    <td>
+                        <form action="/home/trucks/<%= truck._id %>" method="get">
+                            <button type="submit">Edit Truck</button>
                         </form>
                     </td>
                 </tr>

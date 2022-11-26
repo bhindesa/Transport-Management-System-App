@@ -1,0 +1,108 @@
+<%- include('../partials/header') %>
+
+<section id="truck-edit-page">
+    <form id="truckEditSaveForm" action="/home/trucks/<%= truck._id %>" method="POST">
+        <table id="truckEditTable">
+                <tr>
+                    <th>Truck Number: </th>
+                    <td>
+                        <input type="text" name="truckNumber" value="<%= truck.truckNumber %>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Make: </th>
+                    <td>
+                        <input type="text" name="make" value="<%= truck.make %>">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th>Mileage: </th>
+                    <td>
+                        <input type="text" name="mileage" value="<%= truck.mileage %>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Maintenance Date(Y-M-D): </th>
+                    <td>
+                        <input type="date" name="maintenanceDate" value="<%= truck.maintenanceDate.toISOString().slice(0,10) %>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Active: </th>
+                    <td>
+                        <select name="active">
+                            <option value='true' <%= truck.active === true ? 'selected' : '' %>> YES </option>
+                            <option value='false' <%= truck.active === false ? 'selected' : '' %>> No </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Fuel Efficiency(Km/ltr): </th>
+                    <td>
+                        <input type="text" name="fuelEfficiency" value="<%= truck.fuelEfficiency %>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Available Drivers: </th>
+                    <td>
+                        <select name="newCurrentDriverSelected">
+                            <option value="notSelected">Not Selected</option>
+                            <% drivers.map( driver => {%>
+                              <option value="<%= driver._id %>"><%= driver.firstname%>, <%= driver.lastname%></option>`%>
+                            <% }).join('') %>
+                        </select>
+                    </td>
+                </tr>
+                
+        </table>
+         <button type="submit">Save Changes</button>
+    </form>
+</section>
+<br><br><br>
+<section>
+    <h1>Driver of this Truck</h1>
+    <table>
+        <tr>
+            <th>Current Driver</th>
+            <td>
+                <% // console.log("in EDIT EJS current driver : ", truck.currentDrivers) %> 
+                    <%  if(truck.currentDrivers.length === 0){ %> 
+                        No Driver
+                    <% } else { %> 
+                        <table>
+                            <% truck.currentDrivers.map( driver => {%>
+                            <tr>
+                                <td><%= driver.firstname%>, <%= driver.lastname%></td>    
+                                <td>
+                                    <form action="/home/trucks/<%= truck._id %>/driver/<%= driver._id%>?_method=DELETE" method="POST"> 
+                                        <button type="submit">X</button>
+                                    </form>
+                                </td>
+                            <% `</tr>` %>
+                            <% }).join('')%> 
+                        </table>
+                    <% } %>  
+            </td>
+        </tr>    
+        <tr>
+            <th>Truck Drivers History</th>
+            <td>
+                <% if(truck.driversHistory.length === 0){ %> 
+                    No History
+                <% } else {%> 
+                    <ul>
+                        <% truck.driversHistory.map( driver => {%>
+                        <li><%= driver.firstname%>, <%= driver.lastname%></li> %>
+                        <% }).join('') %>
+                    </ul>
+                <% } %> 
+            </td>
+        </tr>  
+    </table>
+</section>
+<form id="truckEditGoBackForm" action="/home/trucks" method="get">
+    <button type="submit">Go Back to All Trucks</button>
+</form>
+
+<%- include('../partials/footer') %>

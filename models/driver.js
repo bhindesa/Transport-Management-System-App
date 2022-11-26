@@ -37,15 +37,14 @@ const driverSchema = new Schema({
         default : 'G'
 
     },
-    assignedTruck : {
+    assignedTruck : [{
         type : Schema.Types.ObjectId,
-        ref : 'Truck',
-        default : null
-    }
+        ref : 'Truck'
+    }]
     
 },
 {
     timestamp : true
 });
 
-module.exports = mongoose.model('Driver', driverSchema)
+module.exports = mongoose.model('Driver', driverSchema);

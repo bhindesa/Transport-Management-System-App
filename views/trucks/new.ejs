@@ -1,0 +1,54 @@
+<%- include('../partials/header') %>
+
+<section id="new-truck-page">
+    <form id="newTruckForm" action="/home/trucks" method="POST">
+        <table id="newTruckTable">
+                <tr>
+                    <th>Truck Number</th>
+                    <td>
+                        <input type="text" name="truckNumber" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Make</th>
+                    <td>
+                        <input type="text" name="make" value="">
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <th>Mileage</th>
+                    <td>
+                        <input type="text" name="mileage" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Maintenance Date(Y-M-D)</th>
+                    <td>
+                        <input type="date" name="maintenanceDate" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Active</th>
+                    <td>
+                        <select name="active">
+                            <option value='true'> YES </option>
+                            <option value='false'> No </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Fuel Efficiency(Km/ltr)</th>
+                    <td>
+                        <input type="text" name="fuelEfficiency" value="">
+                    </td>
+                </tr>
+        </table>
+         <button type="submit">Add Truck</button>
+    </form>
+</section>
+<form id="newTruckCancelForm" action="/home/trucks" method="get">
+    <button type="submit">Cancel</button>
+</form>
+
+<%- include('../partials/footer') %>
