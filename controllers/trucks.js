@@ -14,7 +14,8 @@ function index(req, res){
         }
         res.render('trucks/index',{
             title : 'All Trucks',
-            trucks
+            trucks,
+            user : req.user
         });
     });
     
@@ -44,7 +45,8 @@ function edit(req, res){
                 res.render('trucks/edit',{
                     title : 'Truck Details',
                     truck,
-                    drivers
+                    drivers,
+                    user : req.user
                 })
             });
         }
@@ -57,7 +59,8 @@ function edit(req, res){
                 res.render('trucks/edit',{
                     title : 'Truck Details',
                     truck,
-                    drivers
+                    drivers,
+                    user : req.user
                 });
             });
         }
@@ -145,7 +148,8 @@ function update(req, res){
 function newDriver(req, res){
     
     res.render('trucks/new',{
-        title : 'Add New Truck '
+        title : 'Add New Truck ',
+        user : req.user
     });
 }
 

@@ -15,7 +15,8 @@ function index(req, res){
         }
         res.render('trips/index',{
             title : 'All Trips',
-            trips
+            trips,
+            user : req.user
         });
     })
     
@@ -26,7 +27,8 @@ function newTrip(req, res){
             res.render('trips/new',{
                 title : 'Add Trip',
                 drivers,
-                trucks
+                trucks,
+                user : req.user
             });
         })
     })
@@ -45,7 +47,8 @@ function edit(req, res){
                     title : 'Edit Trip',
                     trip,
                     drivers,
-                    trucks
+                    trucks,
+                    user : req.user
                 });
             
             });

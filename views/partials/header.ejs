@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <!-- Google Icon Fonts used by Materialize -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Materialize CSS Framework -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+  <!-- JavaScript for Materialize -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript" src="/javascripts/chart.js"></script>
 
@@ -17,6 +24,19 @@
     <a href="/home/drivers" <%- title === 'All Drivers' ? 'class="active"' : '' %>>All Drivers</a>
     <a href="/home/trips" <%- title === 'All Trips' ? 'class="active"' : '' %>>All Trips</a>
     <a href="/home" <%- title === 'Home' ? 'class="active"' : '' %>>Home</a>
+    
+    <% if(user) { %>
+        <a href="/logout">Log Out<i class="material-icons">trending_flat</i></a>
+        <span>
+            <% if (user.avatar) { %>
+            <img src="<%= user.avatar %>" alt="<%= user.name.split(' ')[0] %>" class="userImage">
+            <% } else { %>
+              <i class="small material-icons">perm_identity</i>
+            <% } %>
+        </span>
+    <% } else { %>
+      <a href="/auth/google"><i class="material-icons">vpn_key</i>Login with Google</a>
+    <% } %>
   </nav>
   <main>
     <h1><%= title %></h1>

@@ -35,6 +35,16 @@ nav > a >img {
   margin-right: auto;
 }
 
+nav > span >img {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  object-fit: contain; 
+  display: flex;
+  justify-content : flex-start;
+  margin-right: auto;
+}
+
 body > main {
   grid-area: main;
   display: flex;

@@ -19,14 +19,16 @@ function index(req, res){
         }
         res.render('drivers/index',{
             title : 'All Drivers',
-            drivers
+            drivers,
+            user : req.user
         })
     })
     
 }
 function newDriver(req, res){
     res.render('drivers/new',{
-        title : 'Add New Driver'
+        title : 'Add New Driver',
+        user : req.user
     });
 }
 
@@ -56,7 +58,8 @@ function edit(req, res){
             res.render('drivers/edit',{
                 title : 'Add New Driver',
                 driver,
-                trucks
+                trucks,
+                user : req.user
             });
         })
     })

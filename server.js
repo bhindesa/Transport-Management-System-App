@@ -3,21 +3,18 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-// var session = require('express-session');
-// var passport = require('passport');
+var session = require('express-session');
+var passport = require('passport');
 require('dotenv').config();
+require('./config/passport');
 require('./config/database');
-
-// require('./config/passport');
 const methodOverride = require('method-override');
-
-
 
 const homeRouter = require('./routes/home');
 const driversRouter = require('./routes/drivers');
 const trucksRouter = require('./routes/trucks');
 const tripsRouter = require('./routes/trips');
+const oauthRouter = require('./routes/oauth');
 
 
 var app = express();
@@ -30,22 +27,23 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//new lines of code
-// app.use(session({
-//   secret: 'SEIRocks!',
-//   resave: false,
-//   saveUninitialized: true
-// }));
-// app.use(passport.initialize());
-// app.use(passport.session());
-
 app.use(express.static(path.join(__dirname, 'public')));
+
+//new lines of code to implement session and passport
 app.use(methodOverride('_method'));
+app.use(session({
+  secret: 'SEIRocks!',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', homeRouter);
 app.use('/home/drivers', driversRouter);
 app.use('/home/trucks', trucksRouter);
 app.use('/home/trips', tripsRouter);
+app.use('/', oauthRouter),
 
 
 // catch 404 and forward to error handler
