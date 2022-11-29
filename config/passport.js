@@ -30,7 +30,7 @@ passport.use(new GoogleStrategy(
       }
     ));
   
-  // Serializer is when you are logged in initially
+  // Serializer is when you are logged in initially to set cookies with data.
   passport.serializeUser(function (user, done) {
     done(null, user._id);
   });

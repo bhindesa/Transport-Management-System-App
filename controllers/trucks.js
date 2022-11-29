@@ -4,70 +4,138 @@ const ObjectId = mongoose.Types.ObjectId;
 const Driver = require('../models/driver');
 const Truck = require('../models/truck');
 const Trip = require('../models/truck');
+const User = require('../models/user');
 
-function index(req, res){
-    Truck.find({})
-    .populate(['driversHistory', 'currentDrivers'])
-    .exec(function(err, trucks){
-        if(err){
-            console.log('Error occured during pulling Data from Trucks Database -> \n', err);
-        }
-        res.render('trucks/index',{
-            title : 'All Trucks',
-            trucks,
-            user : req.user
+
+async function index(req, res){
+
+    if(req.user){
+        await User.findOne({ '_id':`${req.user._id.toString()}`})
+        .populate(['trucks','drivers', 'trips'])
+        .exec(function(err, user){
+            if(err){
+                console.log('Error occured during pulling Data from user Database with truck field:  -> \n', err);
+            }
+             
+            Truck.find({ "_id" : { "$in" : user.trucks}})
+            .populate(['driversHistory', 'currentDrivers'])
+            .exec(function(err, trucks){
+                if(err){
+                    console.log('Error occured in  trucks controllers index(func) for truck database -> \n', err);
+                }
+                // console.log('Truck in line 45 truck ctrl : \n', trucks)
+                res.render('trucks/index',{
+                    title : 'All Trucks',
+                    trucks ,
+                    user : req.user
+                });
+            });
+            
         });
-    });
+    }
+    // Truck.find({})
+    // .populate(['driversHistory', 'currentDrivers'])
+    // .exec(function(err, trucks){
+        
+    // });
     
 }
 
 function edit(req, res){
     const truckId = req.params.truckId;
-    // console.log('Truck Id : ', truckId)
 
-    Truck.findById(truckId)
-    .populate(['driversHistory', 'currentDrivers'])
-    .exec(function(err, truck){
-        if(err){
-            console.log('Error occured in  trucks controllers Update(func) for truck database -> \n', err);
-        }
-        // console.log("Current truck  : " , truck)
-        // console.log("Current driver  : " , truck.currentDrivers)
-
-        if(truck.currentDrivers.length === 0){
-
-            Driver.find({}, function(err, drivers){
+    if(req.user){
+        User.findOne({ '_id':`${req.user._id.toString()}`})
+        .populate(['trucks','drivers', 'trips'])
+        .exec(function(err, user){
+            
+            Truck.findById(truckId)
+            .populate(['driversHistory', 'currentDrivers'])
+            .exec(function(err, truck){
+                console.log('Truck in line 45 truck ctrl : \n', truck)
+                if(err){
+                    console.log('Error occured in  trucks controllers Update(func) for truck database -> \n', err);
+                }
+                if(truck.currentDrivers.length === 0){
+                    
+                    
+                    Driver.find({ "_id" : {"$in" : user.drivers}}, function(err, drivers){
+                        
+                        // console.log('list of driver in ALL Driver: \n', drivers)
+                        if(err){
+                            console.log('Error occured in trucks controllers Update(func) for driver database -> \n', err);
+                        }
+                        res.render('trucks/edit',{
+                            title : 'Truck Details',
+                            truck,
+                            drivers,
+                            user : req.user
+                        });
+                    });
+                }
+                else {
+                    Driver.find({ '_id' : { '$in' : user.drivers}}, function(err, drivers){
+                        // console.log('list of driver in NOT-IN: \n', drivers)
+                        if(err){
+                            console.log('Error occured in trucks controllers Update(func) for driver database -> \n', err);
+                        }
+                        res.render('trucks/edit',{
+                            title : 'Truck Details',
+                            truck,
+                            drivers,
+                            user : req.user
+                        });
+                    });
+                }
                 
-                // console.log('list of driver in ALL Driver: \n', drivers)
-                if(err){
-                    console.log('Error occured in trucks controllers Update(func) for driver database -> \n', err);
-                }
-                res.render('trucks/edit',{
-                    title : 'Truck Details',
-                    truck,
-                    drivers,
-                    user : req.user
-                })
-            });
-        }
-        else {
-            Driver.find({ _id : {$nin : truck.currentDrivers}}, function(err, drivers){
-                // console.log('list of driver in NOT-IN: \n', drivers)
-                if(err){
-                    console.log('Error occured in trucks controllers Update(func) for driver database -> \n', err);
-                }
-                res.render('trucks/edit',{
-                    title : 'Truck Details',
-                    truck,
-                    drivers,
-                    user : req.user
-                });
-            });
-        }
+        
+              
+            }); 
+
+        });
+    }
+// //old code
+//     Truck.findById(truckId)
+//     .populate(['driversHistory', 'currentDrivers'])
+//     .exec(function(err, truck){
+//         if(err){
+//             console.log('Error occured in  trucks controllers Update(func) for truck database -> \n', err);
+//         }
+       
+//         if(truck.currentDrivers.length === 0){
+
+//             Driver.find({}, function(err, drivers){
+                
+//                 // console.log('list of driver in ALL Driver: \n', drivers)
+//                 if(err){
+//                     console.log('Error occured in trucks controllers Update(func) for driver database -> \n', err);
+//                 }
+//                 res.render('trucks/edit',{
+//                     title : 'Truck Details',
+//                     truck,
+//                     drivers,
+//                     user : req.user
+//                 })
+//             });
+//         }
+//         else {
+//             Driver.find({ _id : {$nin : truck.currentDrivers}}, function(err, drivers){
+//                 // console.log('list of driver in NOT-IN: \n', drivers)
+//                 if(err){
+//                     console.log('Error occured in trucks controllers Update(func) for driver database -> \n', err);
+//                 }
+//                 res.render('trucks/edit',{
+//                     title : 'Truck Details',
+//                     truck,
+//                     drivers,
+//                     user : req.user
+//                 });
+//             });
+//         }
         
 
       
-    }); 
+//     }); 
 }
 function update(req, res){
 
@@ -131,7 +199,7 @@ function update(req, res){
                 truck.fuelEfficiency = req.body.fuelEfficiency;
                 
                 //driver history is referenced
-                truck.driversHistory.push(req.body.newCurrentDriverSelected) ;
+                // truck.driversHistory.push(req.body.newCurrentDriverSelected) ;
 
                 truck.save(function(err){
                     if(err){
@@ -153,10 +221,18 @@ function newDriver(req, res){
     });
 }
 
-function create(req, res){
+async function create(req, res){
+    if(req.user){
+        User.findOne({ '_id':  `${req.user._id.toString()}`},async function(err, user){
+            const newTruck = await Truck.create(req.body);
+            user.trucks.push(newTruck._id);
+            user.save(function(err){
+                res.redirect(`/home/trucks`)
+            })
 
-    Truck.create(req.body);
-    res.redirect(`/home/trucks`)
+        })
+    }
+
 }
 
 function deleteDriver(req, res){
@@ -168,11 +244,11 @@ function deleteDriver(req, res){
     Truck.findById(truckId)
     .exec(function(err, truck){
         if(err){
-            console.log('Error occured in  trucks controllers Update(func) for truck database -> \n', err);
+            console.log('Error occured in  trucks controllers delete(func) for truck database -> \n', err);
         }
         
-        console.log('deleting array :', truck.currentDrivers);
-        console.log('test obj truck id :', ObjectId(driverId));
+        // console.log('deleting array :', truck.currentDrivers);
+        // console.log('test obj truck id :', ObjectId(driverId));
 
         
         const indexOdRemovingDriver = truck.currentDrivers.indexOf(ObjectId(driverId));

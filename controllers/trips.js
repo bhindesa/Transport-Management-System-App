@@ -4,70 +4,92 @@ const ObjectId = mongoose.Types.ObjectId;
 const Driver = require('../models/driver');
 const Truck = require('../models/truck');
 const Trip = require('../models/trip');
+const User = require('../models/user');
+
 
 
 function index(req, res){
-    Trip.find({})
-    .populate(['drivers', 'truck'])
-    .exec(function(err, trips){
-        if(err){
-            console.log('Error occured during pulling Data from Trips Database -> \n', err);
-        }
-        res.render('trips/index',{
-            title : 'All Trips',
-            trips,
-            user : req.user
-        });
-    })
-    
+    if(req.user){
+        User.findOne({ '_id':`${req.user._id.toString()}`})
+        .populate(['trucks','drivers', 'trips'])
+        .exec(function(err, user){
+            if(err){
+                console.log('Error occured in  trips controllers index(func) for user database -> \n', err);
+            }
+            Trip.find({ "_id" : { "$in" : user.trips}})
+            .populate(['drivers', 'truck'])
+            .exec(function(err, trips){
+                if(err){
+                    console.log('Error occured during pulling Data from Trips Database -> \n', err);
+                }
+                res.render('trips/index',{
+                    title : 'All Trips',
+                    trips,
+                    user : req.user
+                });
+            })
+
+        })
+    }
 }
 function newTrip(req, res){
-    Driver.find({}, function(err, drivers){
-        Truck.find({}, function(err, trucks){
-            res.render('trips/new',{
-                title : 'Add Trip',
-                drivers,
-                trucks,
-                user : req.user
-            });
-        })
-    })
-    
+
+    res.render('trips/new',{
+        title : 'Add Trip',
+        user : req.user
+    });
 }
 function edit(req, res){
 
     const tripId = req.params.tripId;
+    if(req.user){
+        User.findOne({ '_id':`${req.user._id.toString()}`})
+        .populate(['trucks','drivers', 'trips'])
+        .exec(function(err, user){
 
-    Driver.find({}, function(err, drivers){
-        Truck.find({}, function(err, trucks){
-            Trip.findById(tripId)
-            .populate(['drivers', 'truck'])
-            .exec(function(err, trip){
-                res.render('trips/edit',{
-                    title : 'Edit Trip',
-                    trip,
-                    drivers,
-                    trucks,
-                    user : req.user
+            Driver.find({ "_id" : {"$in" : user.drivers}}, function(err, drivers){
+                Truck.find({ "_id" : {"$in" : user.trucks}}, function(err, trucks){
+                    Trip.findById(tripId)
+                    .populate(['drivers', 'truck'])
+                    .exec(function(err, trip){
+                        res.render('trips/edit',{
+                            title : 'Edit Trip',
+                            trip,
+                            drivers,
+                            trucks,
+                            user : req.user
+                        });
+                    
+                    });
                 });
-            
             });
-        });
-    });
+
+
+
+        })
+    }
+    
     
 }
 
 function create(req, res){
         console.log(req.body)
-       
-        Trip.create({
-            from : req.body.from,
-            to : req.body.to,
-            tripPrice : req.body.tripPrice,
-            fuelConsumption : req.body.fuelConsumption,
-            otherExpenses : req.body.otherExpenses,
+    if(req.user){
+        User.findOne({ '_id':  `${req.user._id.toString()}`},async function(err, user){ 
+            const newTrip = await Trip.create({
+                from : req.body.from,
+                to : req.body.to,
+                tripPrice : req.body.tripPrice,
+                fuelConsumption : req.body.fuelConsumption,
+                otherExpenses : req.body.otherExpenses,
+            });
+            user.trips.push(newTrip._id);
+            user.save(function(err){
+                res.redirect('/home/trips/');
+            })
         });
-        res.redirect('/home/trips/');
+    }
+        
 }
 
 function update(req, res){
@@ -76,8 +98,8 @@ function update(req, res){
         Truck.find({}, function(err, trucks){
             Trip.findById(req.params.tripId , function(err, trip){
 
-                console.log("The trip info \n", trip)
-                console.log("The trip info -> req body \n", req.body)
+                // console.log("The trip info \n", trip)
+                // console.log("The trip info -> req body \n", req.body)
 
                 if(req.body.drivers === 'notSelected' || req.body.truck === 'notSelected'){
                     console.log('Cant update (Not Selected) option selected on current drivers');

@@ -21,41 +21,42 @@ function drawChart() {
     var chart = new google.visualization.PieChart(document.getElementById('myChart'));
     chart.draw(data, options);
 }
-
 </script>
+
+
+
 <div id="home-page">
-  <div class="detailsArea">
-    <h1>  
-      Trips Report
-    </h1>
-    <div class="details">
-        <% if(trips){ %>
-          <table id="homePageTable">
-            <thead>
-              <tr>
-                <th>From</th>
-                <th>To</th>
-                <th>Trip Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% trips.forEach(trip => { %> 
-              <tr>
-                <td><%= trip.from %></td>
-                <td><%= trip.to %></td>
-                <td><%= trip.tripPrice %></td>
-              </tr>
-              <% }); %>
-            </tbody>
-          </table>
-        <% } %> 
+  <%if(trips.length === 0){ %>
+    <h2 class="no-user-data-available">No Trip Information to show now.</h2>
+  <% } else { %> 
+    <div class="detailsArea">
+      <h1>Trips Report</h1>
+        <div class="details">
+              <table id="homePageTable">
+                <thead>
+                  <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Trip Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% trips.forEach(trip => { %> 
+                  <tr>
+                    <td><%= trip.from %></td>
+                    <td><%= trip.to %></td>
+                    <td><%= trip.tripPrice %></td>
+                  </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+        </div>
     </div>
-  </div>
-  <div id="homePageCharts">
-    <h1> Trips Report Chart</h1>
-    <div id="myChart"></div>
-  </div>
-  
+    <div id="homePageCharts">
+      <h1> Trips Report Chart</h1>
+      <div id="myChart"></div>
+    </div>
+  <% } %>
 </div>
 
 <%- include('../partials/footer') %> 

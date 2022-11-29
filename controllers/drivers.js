@@ -3,6 +3,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const Driver = require('../models/driver');
 const Truck = require('../models/truck');
+const User = require('../models/user');
 
 function findAge(driverDob){
     const now  =  new Date();
@@ -10,21 +11,31 @@ function findAge(driverDob){
     return now.getFullYear() - dob.getFullYear();
 }
 
-function index(req, res){
-    Driver.find({})
-    .populate('assignedTruck')
-    .exec(function(err, drivers){
-        if(err){
-            console.log('Error occured during pulling Data from Drivers Database -> \n', err);
-        }
-        res.render('drivers/index',{
-            title : 'All Drivers',
-            drivers,
-            user : req.user
-        })
-    })
-    
+async function index(req, res){
+    if(req.user){
+        await User.findOne({ '_id':`${req.user._id.toString()}`})
+        .populate(['trucks','drivers', 'trips'])
+        .exec(function(err, user){
+            
+            Driver.find({ "_id" : { "$in" : user.drivers}})
+            .populate(['assignedTruck'])
+            .exec(function(err, drivers){
+                console.log('drivers in line 23 drivers ctrl : \n', drivers);
+                res.render('drivers/index',
+                        {
+                            title : 'All Drivers',
+                            drivers,
+                            user : req.user
+                        });
+                if(err){
+                    console.log('Error occured in  drivers controllers index(func) for driver database -> \n', err);
+                }
+            });
+        });
+            
+    }
 }
+
 function newDriver(req, res){
     res.render('drivers/new',{
         title : 'Add New Driver',
@@ -33,37 +44,67 @@ function newDriver(req, res){
 }
 
 function create(req, res){
-    console.log(req.body)
-   
-    Driver.create({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        age : findAge(req.body.dob),
-        dob: req.body.dob,
-        isIdle: req.body.isIdle,
-        licenseNumber: req.body.licenseNumber,
-        licenseType: req.body.licenseType,
+    // console.log(req.body)
+   if(req.user){
+        User.findOne({ '_id':  `${req.user._id.toString()}`},async function(err, user){
+            console.log("User in create func of driver", user)
+            const newDriver = await Driver.create({
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                age : findAge(req.body.dob),
+                dob: req.body.dob,
+                isIdle: req.body.isIdle,
+                licenseNumber: req.body.licenseNumber,
+                licenseType: req.body.licenseType,
+            });
 
-    });
-    res.redirect('/home/drivers/');
+            // console.log("New Driver : \n", newDriver)
+
+            user.drivers.push(newDriver._id);
+            user.save(function(err){
+                res.redirect('/home/drivers/');
+            })
+            
+        })
+   }
+   else {
+        const newDriver = Driver.create({
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            age : findAge(req.body.dob),
+            dob: req.body.dob,
+            isIdle: req.body.isIdle,
+            licenseNumber: req.body.licenseNumber,
+            licenseType: req.body.licenseType,
+        });
+        res.redirect('/home/drivers/');
+   }
+    
 }
 
 function edit(req, res){
-    const driverId = req.params.driverId;
-    Driver.findById(driverId)
-    .populate('assignedTruck')
-    .exec(function(err, driver){
-        Truck.find({}, function(err, trucks){
+    if(req.user){
+        User.findOne({ '_id':`${req.user._id.toString()}`})
+        .populate(['trucks','drivers', 'trips'])
+        .exec(function(err, user){
 
-            res.render('drivers/edit',{
-                title : 'Add New Driver',
-                driver,
-                trucks,
-                user : req.user
+            const driverId = req.params.driverId;
+
+            Driver.findById(driverId)
+            .populate('assignedTruck')
+            .exec(function(err, driver){
+                Truck.find({ '_id' : { '$in' : user.trucks}}, function(err, trucks){
+                    res.render('drivers/edit',{
+                        title : 'Add New Driver',
+                        driver,
+                        trucks,
+                        user : req.user
+                    });
+                });
             });
+
         })
-    })
-    
+    }
 }
 
 
