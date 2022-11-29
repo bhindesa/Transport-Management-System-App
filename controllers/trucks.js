@@ -263,11 +263,32 @@ function deleteDriver(req, res){
 
 }
 
+function deleteTruck(req,res){
+    const truckId = req.params.truckId;
+    if(req.user){
+        User.findOne({ '_id':`${req.user._id.toString()}`})
+        .populate(['trucks','drivers', 'trips'])
+        .exec(function(err, user){
+            // user.drivers.id(driverId).remove();
+            const indexOdRemovingTruck = user.trips.indexOf(ObjectId(truckId));
+            user.trucks.splice(indexOdRemovingTruck, 1);
+            user.save(function(err){
+                console.log('Error -> ', err);
+                
+                Truck.findByIdAndDelete(truckId);
+                res.redirect('/home/trucks')
+
+            });
+        })
+    }
+}
+
 module.exports = {
     index,
     edit,
     update,
     new : newDriver,
     create,
-    deleteDriver
+    deleteDriver,
+    deleteTruck
 }

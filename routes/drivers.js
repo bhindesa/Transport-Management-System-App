@@ -16,6 +16,8 @@ router.get('/:driverId', isLoggedIn, driversCtrl.edit);
 router.post('/new', isLoggedIn, driversCtrl.create);
 router.post('/:driverId', isLoggedIn, driversCtrl.update);
 router.delete('/:driverId/truck/:truckId', isLoggedIn, driversCtrl.delete);
+router.delete('/:driverId', isLoggedIn, driversCtrl.deleteDriver);
+
 
 
 

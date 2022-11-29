@@ -16,6 +16,8 @@ router.get('/:truckId',isLoggedIn, trucksCtrl.edit);
 router.post('/',isLoggedIn, trucksCtrl.create);
 router.post('/:truckId',isLoggedIn, trucksCtrl.update);
 router.delete('/:truckId/driver/:driverId',isLoggedIn, trucksCtrl.deleteDriver);
+router.delete('/:truckId/',isLoggedIn, trucksCtrl.deleteTruck);
+
 
 
 

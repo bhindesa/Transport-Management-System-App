@@ -149,7 +149,7 @@ th {
 }
 
 table td {
-  padding: 15px;
+  padding: 10px;
   text-align: center;
   border: 2px solid rgb(120, 113, 145);
   border-radius: 10px;
@@ -157,7 +157,7 @@ table td {
   /* float: left; */
 }
 .editingTable > tbody > tr > td {
-  padding: 15px;
+  padding: 10px;
   text-align: center;
   border: 2px solid rgb(120, 113, 145);
   border-radius: 10px;
@@ -210,6 +210,20 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.edit-button{
+  margin: 5px !important;
+  text-decoration: none;
+  padding: 5px !important;
+  font-weight: 600;
+  border-radius: 5px !important;
+}
+.delete-button {
+  margin: 5px !important;
+  text-decoration: none;
+  padding: 5px !important;
+  font-weight: 600;
+  border-radius: 5px !important ;
 }
 
 h1 {

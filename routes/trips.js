@@ -17,6 +17,7 @@ router.post('/',isLoggedIn, tripsCtrl.create);
 router.post('/:tripId',isLoggedIn, tripsCtrl.update);
 router.delete('/:tripId/driver/:driverId',isLoggedIn, tripsCtrl.delete);
 router.delete('/:tripId/truck/:truckId',isLoggedIn, tripsCtrl.delete);
+router.delete('/:tripId/',isLoggedIn, tripsCtrl.deleteTrip);
 
 
 module.exports = router;

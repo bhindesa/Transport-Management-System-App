@@ -1,12 +1,12 @@
 <%- include('../partials/header') %>
-<div id="driver-page">
-  <% if(drivers.length === 0){ %>
-    <h2 class="no-user-data-available">No Drivers Information to show now. Please add driver by clicking on "Add New Driver" button</h2>
-<% } else {%> 
+<div id="driver-page"> 
   <div class="detailsArea">
     <form class="newPageButton" action="/home/drivers/new" method="get">
       <button type="submit">Add New Driver</button>
     </form>
+    <% if(drivers.length === 0){ %>
+      <h2 class="no-user-data-available">No Drivers Information to show now. Please add driver by clicking on "Add New Driver" button</h2>
+  <% } else {%>
     <div class="details">
      
         <table>
@@ -20,7 +20,7 @@
               <th>License Number</th>
               <th>License Type</th>
               <th>Assigned Truck</th>
-              <th>Edit Driver Below</th>
+              <th>Modify Driver Below</th>
             </tr>
           </thead>
           <tbody>
@@ -47,8 +47,11 @@
                   <%} %>
                   <td>
                       <form action="/home/drivers/<%= driver._id %>" method="get">
-                          <button type="submit">Edit Driver</button>
+                          <button clas="edit-button" type="submit">Edit Driver</button>
                       </form>
+                      <form action="/home/drivers/<%= driver._id %>?_method=DELETE" method="POST">
+                        <button clas="delete-button" type="submit">Delete Driver</button>
+                    </form>
                   </td>
               </tr>
               <% }); %>

@@ -166,7 +166,7 @@ function update(req, res){
     });
 }
 
-function deleteTrip(req, res){
+function deleteTruckAndDriver(req, res){
     const tripId = req.params.tripId;
     const truckId = req.params.truckId;
     const driverId = req.params.driverId;
@@ -199,11 +199,32 @@ function deleteTrip(req, res){
     });
 }
 
+function deleteTrip(req,res){
+    const tripId = req.params.tripId;
+    if(req.user){
+        User.findOne({ '_id':`${req.user._id.toString()}`})
+        .populate(['trucks','drivers', 'trips'])
+        .exec(function(err, user){
+            // user.drivers.id(driverId).remove();
+            const indexOdRemovingTrip = user.trips.indexOf(ObjectId(tripId));
+            user.trips.splice(indexOdRemovingTrip, 1);
+            user.save(function(err){
+                console.log('Error -> ', err);
+                
+                Trip.findByIdAndDelete(tripId);
+                res.redirect('/home/trips')
+
+            });
+        })
+    }
+}
+
 module.exports = {
     index,
     new: newTrip,
     edit,
     create,
     update,
-    delete : deleteTrip
+    delete : deleteTruckAndDriver,
+    deleteTrip
 }

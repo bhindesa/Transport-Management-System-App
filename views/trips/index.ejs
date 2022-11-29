@@ -1,12 +1,12 @@
 <%- include('../partials/header') %>
 <div id="trip-page">
-  <% if(trips.length === 0){ %>
-    <h2 class="no-user-data-available">No Trips Information to show now. Please add trips by clicking on "Add New Trip" button</h2>
-  <% }  else {%> 
     <div class="detailsArea">
       <form class="newPageButton" action="/home/trips/new" method="get">
         <button type="submit">Add New Trip</button>
       </form>
+      <% if(trips.length === 0){ %>
+        <h2 class="no-user-data-available">No Trips Information to show now. Please add trips by clicking on "Add New Trip" button</h2>
+      <% }  else {%> 
       <div iclass="details">
             <table>
               <thead>
@@ -48,8 +48,11 @@
                       <%} %>
                       <td>
                           <form action="/home/trips/<%= trip._id %>" method="PUT">
-                              <button type="submit">Edit Trip</button>
+                              <button clas="edit-button" type="submit">Edit Trip</button>
                           </form>
+                          <form action="/home/trips/<%= trip._id %>?_method=DELETE" method="POST">
+                            <button clas="delete-button" type="submit">Delete Trip</button>
+                        </form>
                       </td>
                   </tr>
                   <% }); %>

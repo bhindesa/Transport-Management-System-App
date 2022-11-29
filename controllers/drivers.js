@@ -174,7 +174,7 @@ function update(req, res){
     });
 }
 
-function deleteDriver(req, res){
+function deleteAssigned(req, res){
     const truckId = req.params.truckId;
     const driverId = req.params.driverId;
 
@@ -201,11 +201,32 @@ function deleteDriver(req, res){
     });
 }
 
+function deleteDriver(req,res){
+    const driverId = req.params.driverId;
+    if(req.user){
+        User.findOne({ '_id':`${req.user._id.toString()}`})
+        .populate(['trucks','drivers', 'trips'])
+        .exec(function(err, user){
+            // user.drivers.id(driverId).remove();
+            const indexOdRemovingDriver = user.drivers.indexOf(ObjectId(driverId));
+            user.drivers.splice(indexOdRemovingDriver, 1);
+            user.save(function(err){
+                console.log('Error -> ', err);
+                
+                Driver.findByIdAndDelete(driverId);
+                res.redirect('/home/drivers')
+
+            });
+        })
+    }
+}
+
 module.exports = {
     index,
     new : newDriver,
     create,
     update,
     edit,
-    delete: deleteDriver
+    delete: deleteAssigned,
+    deleteDriver
 }
