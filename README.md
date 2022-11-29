@@ -44,6 +44,7 @@ Upon starting the application, the user will be brought to an un-authenticated l
 ![Pre-Login Homepage](https://i.imgur.com/10Dc9yi.png)
 
 Once a user has logged in with Google OAuth, they will be brought to an home page wherethey can all the buttons to navigate to different pages. 
+![After-Login with Google Homepage](https://i.imgur.com/PhJVoxd.png)
 
 
 ![All Trip Page](https://i.imgur.com/g6XT7fa.png)
