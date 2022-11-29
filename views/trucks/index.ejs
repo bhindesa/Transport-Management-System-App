@@ -1,11 +1,14 @@
 <%- include('../partials/header') %>
 <div id="truck-page">
-  <div class="detailsArea">
+  <% if(trucks.length === 0){ %>
+    <h2 class="no-user-data-available">No Trucks Information to show now. Please add trucks by clicking on "Add New truck" button</h2>
+  <% } else {%> 
+    <div class="detailsArea">
       <form class="newPageButton" action="/home/trucks/new" method="get">
         <button type="submit">Add New Truck</button>
       </form>
     <div class="details">
-        <% if(trucks){ %>
+        
           <table>
             <thead>
               <tr>
@@ -64,9 +67,10 @@
                 <% }); %>
             </tbody>
           </table>
-        <% } %> 
-    </div>
-  </div>
+        </div>
+      </div>
+  <% } %> 
+
 </div>
 
 <%- include('../partials/footer') %> 
