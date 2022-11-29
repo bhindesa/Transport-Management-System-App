@@ -30,7 +30,12 @@ function drawChart() {
     <h2 class="no-user-data-available">No Information to show now. Please add trips on All trips page</h2>
   <% } else { %> 
     <div class="detailsArea">
-      <h1>Trips Report</h1>
+      <% if(user){ %> 
+         <h1>Trips Report</h1>
+        <% } else { %> 
+          <h1>Demo - Trips Report</h1>
+        <% } %> 
+
         <div class="details">
               <table id="homePageTable">
                 <thead>
