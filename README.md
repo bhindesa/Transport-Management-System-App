@@ -2,7 +2,7 @@
 ## Getting Started 🎬
 Welcome to Transportation Management System App! This project was developed to businesses to track their truck, manage driver, and check trip history. 
 
-### Transportation Management System [CLICK HERE TO VIEW](https://sei-students-54.herokuapp.com/)
+### Transportation Management System [CLICK HERE TO VIEW](https://transports-management-system.herokuapp.com/)
 
 ---
 
