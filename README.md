@@ -2,7 +2,7 @@
 ## Getting Started 🎬
 Welcome to Transportation Management System App! This project was developed to businesses to track their truck, manage driver, and check trip history. 
 
-### Transportation Management System [CLICK HERE TO VIEW](https://transports-management-system.herokuapp.com/)
+### Transportation Management System [CLICK HERE TO VIEW](https://expressjs-mongoose-production-0270.up.railway.app/home)
 
 ---
 
@@ -27,6 +27,7 @@ Wireframe :[Click here for ERD ](https://app.diagrams.net/#G1MQo-i43zFyFbrnEF8VV
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 ![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)
+![Railway](https://railway.app/brand/logotype-dark.png)
 ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
@@ -172,5 +173,5 @@ Date:   Sun Nov 20 20:21:44 2022 -0500
 Thank you to the following artists and organizations! 
 
 - Google: For helping me with issues or errors.
-- Priceton Ebanks(My instructor) : For helping me understand new technologies and find better solutions. 
+- Priceton Ebanks(My mentor) : For helping me understand new technologies and find better solutions. 
 - Boostrap Library: for use in buttons, cards, and form styling (find out more [here](https://getbootstrap.com/))
